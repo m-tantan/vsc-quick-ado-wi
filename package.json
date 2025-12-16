@@ -1,0 +1,82 @@
+{
+  "name": "azure-devops-workitem-creator",
+  "displayName": "Azure DevOps Work Item Creator",
+  "description": "Create Azure DevOps work items directly from code selections in VS Code",
+  "version": "1.0.0",
+  "publisher": "yomanor",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": ["Azure"],
+  "activationEvents": [
+    "onCommand:azuredevops.createWorkItem",
+    "onCommand:azuredevops.configure"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "azuredevops.createWorkItem",
+        "title": "Create Azure DevOps Work Item"
+      },
+      {
+        "command": "azuredevops.configure",
+        "title": "Configure Azure DevOps Settings"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "azuredevops.createWorkItem",
+          "when": "editorHasSelection",
+          "group": "9_cutcopypaste@100"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Azure DevOps WIC",
+      "properties": {
+        "azureDevOps.organization": {
+          "type": "string",
+          "default": "",
+          "description": "Azure DevOps organization name"
+        },
+        "azureDevOps.project": {
+          "type": "string",
+          "default": "",
+          "description": "Azure DevOps project name"
+        },
+        "azureDevOps.defaultWorkItemType": {
+          "type": "string",
+          "default": "Task",
+          "description": "Default work item type to create"
+        },
+        "azureDevOps.areaPath": {
+          "type": "string",
+          "default": "",
+          "description": "Area Path for work items (e.g., 'ProjectName\\Team'). Leave empty to use project root."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "jest",
+    "package": "vsce package"
+  },
+  "keywords": ["azure", "devops", "work item", "task", "ado"],
+  "author": "yomanor",
+  "license": "MIT",
+  "devDependencies": {
+    "@jest/globals": "^30.2.0",
+    "@types/node": "^25.0.2",
+    "@types/vscode": "^1.107.0",
+    "@vscode/test-electron": "^2.5.2",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.9.3"
+  }
+}
