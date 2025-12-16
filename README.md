@@ -30,42 +30,43 @@ Create Azure DevOps work items directly from code selections in Visual Studio Co
 ### Initial Setup
 
 1. **Authenticate**: The extension will prompt you to sign in with your Microsoft account
-   
+
    ![Authentication prompt](images/auth-prompt.png)
    <span aria-label="Screenshot showing: VS Code authentication dialog 'Azure DevOps Work Item Creator wants to sign in using Microsoft' with 'Allow' button"></span>
 
 2. **Configure Settings**: Enter your Azure DevOps details:
+
    - **Organization**: Your Azure DevOps organization name (e.g., `microsoft` for `https://dev.azure.com/microsoft/`)
    - **Project**: Your project name (e.g., `DefenderCommon`)
    - **Area Path** (Optional): Specific area path if you have restricted permissions
 
    ![Settings configuration](images/config-settings.png)
-   <span aria-label="Screenshot showing: Three VS Code input prompts filled in - Organization: 'microsoft', Project: 'DefenderCommon', Area Path: 'OS\\WDATP\\Windows Cyber Defense\\Seville\\SOC Copilot\\Idan's Team'"></span>
+   <span aria-label="Screenshot showing: Three VS Code input prompts filled in - Organization: 'microsoft', Project: 'DefenderCommon', Area Path: 'Your area path'"></span>
 
 ### Creating Your First Work Item
 
 1. **Select Code**: Highlight any code snippet in your editor
-   
+
    ![Code selection](images/code-selection.png)
    <span aria-label="Screenshot showing: VS Code editor with a TypeScript function selected/highlighted in blue"></span>
 
 2. **Open Context Menu**: Right-click on the selection
-   
+
    ![Context menu](images/context-menu.png)
    <span aria-label="Screenshot showing: Right-click context menu with 'Create Azure DevOps Work Item' option highlighted"></span>
 
 3. **Enter Title**: Provide a descriptive title for the work item
-   
+
    ![Title prompt](images/title-prompt.png)
    <span aria-label="Screenshot showing: VS Code input box at top of editor with placeholder 'Enter work item title' and example text 'Refactor calculateTotal to handle null items'"></span>
 
 4. **Add Context** (Optional): Add additional description or context
-   
+
    ![Description prompt](images/description-prompt.png)
    <span aria-label="Screenshot showing: VS Code input box with placeholder 'Additional context (optional)' and example text 'Need to add null checking and improve error handling'"></span>
 
 5. **Work Item Created!**: The URL is copied to your clipboard and a notification appears
-   
+
    ![Success notification](images/success-notification.png)
    <span aria-label="Screenshot showing: VS Code info notification 'Copied to clipboard' with two buttons - 'Open Work Item' and 'Open Parent'"></span>
 
@@ -120,7 +121,7 @@ export function calculateTotal(items: Item[]): number {
 
 Branch: feature/refactor-calculations
 
-```
+````
 
 ### Commands
 
@@ -180,7 +181,7 @@ export function calculateTotal(items: Item[]): number {
   }, 0);
 }
 </code></pre>
-```
+````
 
 ## 🔧 Advanced Features
 
@@ -194,6 +195,7 @@ Select code from different parts of the same file or across multiple files. All 
 ### Parent Deliverable Management
 
 The extension automatically:
+
 1. Creates a parent deliverable titled "Quick WIs" on first use
 2. Links all subsequent work items to this parent
 3. Stores the parent ID in workspace state
@@ -201,6 +203,7 @@ The extension automatically:
 5. Recreates the parent if it was deleted
 
 This allows you to easily:
+
 - Track all quick work items in one place
 - Filter work items by parent in Azure DevOps queries
 - Organize technical debt and bugs
@@ -211,7 +214,7 @@ If you have restricted permissions in Azure DevOps, configure an Area Path you h
 
 ```json
 {
-  "azureDevOps.areaPath": "OS\\WDATP\\Windows Cyber Defense\\Seville\\SOC Copilot"
+  "azureDevOps.areaPath": "Your area path"
 }
 ```
 
@@ -224,6 +227,7 @@ The parent deliverable and all work items will be created in this area.
 **Problem**: "Authentication failed" or "Unauthorized" errors
 
 **Solutions**:
+
 1. Run **"Configure Azure DevOps Settings"** command to re-authenticate
 2. Ensure you're signed in with the correct Microsoft account
 3. Verify you have access to the organization and project
@@ -239,6 +243,7 @@ The parent deliverable and all work items will be created in this area.
 **Problem**: Work item created but no parent link visible
 
 **Check Developer Console** (Help → Toggle Developer Tools → Console):
+
 - Look for logs starting with `-----`
 - Verify parent deliverable ID is shown
 - Check if parent link URL is correct
@@ -248,6 +253,7 @@ The parent deliverable and all work items will be created in this area.
 **Problem**: "Unable to reach Azure DevOps"
 
 **Solutions**:
+
 - Check internet connection
 - Verify Azure DevOps is accessible (try opening in browser)
 - The extension will automatically retry 3 times with exponential backoff
@@ -257,6 +263,7 @@ The parent deliverable and all work items will be created in this area.
 **Problem**: "You do not have permissions to create work items"
 
 **Solutions**:
+
 1. Configure an Area Path you have access to in settings
 2. Contact your Azure DevOps admin to grant "Create work items" permission
 3. Verify your organization and project names are correct
@@ -282,6 +289,7 @@ All extension operations are logged with a `----- ` prefix for easy filtering:
 ## 🔒 Privacy & Security
 
 This extension:
+
 - ✅ Uses VS Code's secure credential storage for authentication tokens
 - ✅ Supports Microsoft SSO (Single Sign-On)
 - ✅ Only communicates with official Azure DevOps APIs
@@ -291,10 +299,10 @@ This extension:
 
 ## 📝 Commands
 
-| Command | Keyboard Shortcut | Description |
-|---------|------------------|-------------|
-| **Create Azure DevOps Work Item** | Right-click context menu | Create work item from code selection |
-| **Configure Azure DevOps Settings** | Command Palette | Update organization/project/area path |
+| Command                             | Keyboard Shortcut        | Description                           |
+| ----------------------------------- | ------------------------ | ------------------------------------- |
+| **Create Azure DevOps Work Item**   | Right-click context menu | Create work item from code selection  |
+| **Configure Azure DevOps Settings** | Command Palette          | Update organization/project/area path |
 
 ## 🔄 Requirements
 
@@ -313,6 +321,7 @@ This extension:
 ## 🗺️ Roadmap
 
 Future enhancements planned:
+
 - [ ] Support for Bug, User Story, and custom work item types
 - [ ] Configurable fields (Tags, Iteration, Priority, etc.)
 - [ ] Workspace-specific configurations
@@ -323,6 +332,7 @@ Future enhancements planned:
 ## 🤝 Contributing
 
 Contributions are welcome! Please:
+
 1. Fork the repository
 2. Create a feature branch
 3. Submit a pull request
@@ -335,4 +345,3 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 - **Issues**: [GitHub Issues](https://github.com/m-tantan/vsc-quick-ado-wi/issues)
 - **Source**: [GitHub Repository](https://github.com/m-tantan/vsc-quick-ado-wi)
-```
