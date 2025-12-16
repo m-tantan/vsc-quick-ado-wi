@@ -33,6 +33,7 @@ Create Azure DevOps work items directly from code selections in Visual Studio Co
 ### Example
 
 Selecting this code:
+
 ```typescript
 export function calculateTotal(items: Item[]): number {
   return items.reduce((sum, item) => {
@@ -42,7 +43,8 @@ export function calculateTotal(items: Item[]): number {
 ```
 
 Creates a work item with description:
-```
+
+````
 File: src/utils/helper.ts (Lines 45-52)
 ```typescript
 export function calculateTotal(items: Item[]): number {
@@ -50,9 +52,10 @@ export function calculateTotal(items: Item[]): number {
     return sum + item.price * item.quantity;
   }, 0);
 }
-```
+````
 
 Branch: feature/refactor-calculations
+
 ```
 
 ### Commands
@@ -121,3 +124,4 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed release notes.
 ## License
 
 MIT License - see LICENSE file for details
+```
