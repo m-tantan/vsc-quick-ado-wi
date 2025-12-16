@@ -36,13 +36,12 @@ Create Azure DevOps work items directly from code selections in Visual Studio Co
 
 2. **Configure Settings**: Enter your Azure DevOps details:
 
-   - **Organization**: Your Azure DevOps organization name (e.g., `microsoft` for `https://dev.azure.com/microsoft/`)
-   - **Project**: Your project name (e.g., `DefenderCommon`)
+   - **Organization**: Your Azure DevOps organization name (e.g., `WrecklessEngineer` for `https://dev.azure.com/WrecklessEngineer/`)
+   - **Project**: Your project name (e.g., `MyFirstProject`)
    - **Area Path** (Optional): Specific area path if you have restricted permissions
 
    ![Settings configuration](images/config-settings.png)
-   <span aria-label="Screenshot showing: Three VS Code input prompts filled in - Organization: 'microsoft', Project: 'DefenderCommon', Area Path: 'Your area path'"></span>
-
+   <span aria-label="Screenshot showing: Three VS Code input prompts filled in - Organization: 'WrecklessEngineer', Project: 'MyFirstProject', Area Path: 'Your area path'"></span>
 ### Creating Your First Work Item
 
 1. **Select Code**: Highlight any code snippet in your editor
