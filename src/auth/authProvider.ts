@@ -98,15 +98,10 @@ export async function signIn(): Promise<vscode.AuthenticationSession> {
  * Users can fully remove their account through VS Code's Accounts menu.
  */
 export async function signOut(): Promise<void> {
-    try {
-        // Clear the cached session
-        cachedSession = null;
-        
-        // Note: VS Code's authentication API doesn't provide a direct way to programmatically 
-        // sign out. The user can manage their accounts through VS Code's Accounts menu.
-        // Clearing the cache ensures the next operation will prompt for authentication.
-    } catch (error) {
-        const message = error instanceof Error ? error.message : 'Unknown error';
-        throw new Error(`Azure DevOps sign-out failed: ${message}`);
-    }
+    // Clear the cached session
+    cachedSession = null;
+    
+    // Note: VS Code's authentication API doesn't provide a direct way to programmatically 
+    // sign out. The user can manage their accounts through VS Code's Accounts menu.
+    // Clearing the cache ensures the next operation will prompt for authentication.
 }
