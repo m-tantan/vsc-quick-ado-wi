@@ -73,7 +73,7 @@
     },
     "walkthroughs": [
       {
-        "id": "azuredevops.getStarted",
+        "id": "quickado.getStarted",
         "title": "Get Started with Azure DevOps Work Items",
         "description": "Learn how to sign in and create your first work item from code selections",
         "steps": [
@@ -153,7 +153,9 @@
     "devops",
     "work item",
     "task",
-    "ado"
+    "ado",
+    "snippet",
+    "quote"
   ],
   "author": "yomanor",
   "license": "MIT",

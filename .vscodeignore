@@ -1,4 +1,5 @@
 node_modules
+dist
 *.vsix
 .vscode-test
 src/**/*.test.ts
