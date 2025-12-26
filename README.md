@@ -20,10 +20,13 @@ Create Azure DevOps work items directly from code selections in Visual Studio Co
 
 1. Install the extension from the VS Code Marketplace
 2. Open VS Code
-3. Run the command **"Create Azure DevOps Work Item"** or **"Configure Azure DevOps Settings"** to trigger initial setup
+3. **Follow the walkthrough**: Go to **Help** → **Get Started** → **Walkthroughs** and select **"Get Started with Azure DevOps Work Items"**
+   - Or run the command **"Create Azure DevOps Work Item"** or **"Configure Azure DevOps Settings"** to trigger initial setup
 
 ![Configuration wizard](images/setup-wizard.png)
 <span aria-label="Screenshot showing: Setup wizard with three input prompts - Organization name, Project name, and Area Path (optional)"></span>
+
+**First-Time Experience**: When you first install the extension, we recommend following the walkthrough to learn how to sign in, configure your settings, and create your first work item.
 
 ## 🚀 Quick Start
 
@@ -42,6 +45,50 @@ Create Azure DevOps work items directly from code selections in Visual Studio Co
 
    ![Settings configuration](images/config-settings.png)
    <span aria-label="Screenshot showing: Three VS Code input prompts filled in - Organization: 'WrecklessEngineer', Project: 'MyFirstProject', Area Path: 'Your area path'"></span>
+
+### Sign In / Sign Out
+
+#### Signing In
+
+The extension uses **VS Code's built-in Microsoft authentication**, which is secure and seamless.
+
+To sign in explicitly, you can:
+
+1. **Use the Command Palette**: Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (Mac)
+2. Type **"Quick ADO: Sign In"**
+3. Press Enter and follow the authentication prompts
+
+**What happens during sign-in:**
+- A browser window opens asking you to sign in with your Microsoft account
+- You'll be asked to grant permissions to VS Code
+- Once authorized, you'll see a success message with your account name
+- If you haven't configured your organization/project yet, you'll be prompted to do so
+
+**Note**: Most of the time, you won't need to sign in manually. The extension will automatically prompt you to authenticate when you first try to create a work item.
+
+#### Signing Out
+
+To sign out from Azure DevOps:
+
+1. **Use the Command Palette**: Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (Mac)
+2. Type **"Quick ADO: Sign Out"**
+3. Press Enter and confirm the sign-out
+
+**What happens during sign-out:**
+- Your cached authentication session is cleared
+- You'll need to sign in again the next time you create a work item
+- Your configuration (organization, project, area path) is preserved
+
+**To fully remove access:**
+- Go to VS Code's **Accounts** menu (bottom-left corner)
+- Manage your Microsoft account and remove the Azure DevOps permissions
+
+#### Checking Your Sign-In Status
+
+After signing in, you can verify which organization and project you're connected to by:
+- Running the **"Configure Azure DevOps Settings"** command to see your current configuration
+- Checking the success message that appears after signing in
+
 ### Creating Your First Work Item
 
 1. **Select Code**: Highlight any code snippet in your editor
@@ -126,6 +173,8 @@ Branch: feature/refactor-calculations
 
 - **Create Azure DevOps Work Item** - Create a work item from selected code
 - **Configure Azure DevOps Settings** - Change organization/project or re-authenticate
+- **Quick ADO: Sign In** - Sign in to Azure DevOps with your Microsoft account
+- **Quick ADO: Sign Out** - Sign out from Azure DevOps and clear cached authentication
 
 ## ⚙️ Configuration
 
@@ -298,10 +347,12 @@ This extension:
 
 ## 📝 Commands
 
-| Command                             | Keyboard Shortcut        | Description                           |
-| ----------------------------------- | ------------------------ | ------------------------------------- |
-| **Create Azure DevOps Work Item**   | Right-click context menu | Create work item from code selection  |
-| **Configure Azure DevOps Settings** | Command Palette          | Update organization/project/area path |
+| Command                             | Keyboard Shortcut        | Description                                |
+| ----------------------------------- | ------------------------ | ------------------------------------------ |
+| **Create Azure DevOps Work Item**   | Right-click context menu | Create work item from code selection       |
+| **Configure Azure DevOps Settings** | Command Palette          | Update organization/project/area path      |
+| **Quick ADO: Sign In**              | Command Palette          | Sign in to Azure DevOps                    |
+| **Quick ADO: Sign Out**             | Command Palette          | Sign out from Azure DevOps                 |
 
 ## 🔄 Requirements
 
