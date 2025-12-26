@@ -101,7 +101,7 @@
             "title": "Configure Your Organization and Project",
             "description": "Set up your Azure DevOps organization and project.\n[Configure Now](command:azuredevops.configure)",
             "media": {
-              "markdown": "walkthroughs/welcome.md"
+              "markdown": "walkthroughs/configure.md"
             },
             "completionEvents": [
               "onCommand:azuredevops.configure",

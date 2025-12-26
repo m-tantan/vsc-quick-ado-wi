@@ -33,7 +33,11 @@ export async function signInCommand(): Promise<void> {
             }
         }
     } catch (error) {
-        const message = error instanceof Error ? error.message : 'Unknown error';
+        // Log the full error for debugging
+        console.error('Sign-in error:', error);
+        
+        // Show user-friendly message
+        const message = error instanceof Error ? error.message : 'An unexpected error occurred during sign-in';
         vscode.window.showErrorMessage(`Sign-in failed: ${message}`);
     }
 }
@@ -72,7 +76,11 @@ export async function signOutCommand(): Promise<void> {
             );
         }
     } catch (error) {
-        const message = error instanceof Error ? error.message : 'Unknown error';
+        // Log the full error for debugging
+        console.error('Sign-out error:', error);
+        
+        // Show user-friendly message
+        const message = error instanceof Error ? error.message : 'An unexpected error occurred during sign-out';
         vscode.window.showErrorMessage(`Sign-out failed: ${message}`);
     }
 }

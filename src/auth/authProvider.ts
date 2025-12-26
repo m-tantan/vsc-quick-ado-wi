@@ -92,7 +92,10 @@ export async function signIn(): Promise<vscode.AuthenticationSession> {
 }
 
 /**
- * Sign out from Azure DevOps - clears the authentication session
+ * Sign out from Azure DevOps - clears the cached authentication session
+ * Note: This only clears the cached session in the extension. 
+ * VS Code's authentication API doesn't provide a way to programmatically sign out.
+ * Users can fully remove their account through VS Code's Accounts menu.
  */
 export async function signOut(): Promise<void> {
     try {
