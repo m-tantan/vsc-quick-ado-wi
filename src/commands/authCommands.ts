@@ -33,8 +33,12 @@ export async function signInCommand(): Promise<void> {
             }
         }
     } catch (error) {
-        // Log the full error for debugging
-        console.error('Sign-in error:', error);
+        // Log sanitized error for debugging (avoid logging sensitive auth details)
+        if (error instanceof Error) {
+            console.error('Sign-in error:', error.message);
+        } else {
+            console.error('Sign-in error: An unexpected error occurred');
+        }
         
         // Show user-friendly message
         const message = error instanceof Error ? error.message : 'An unexpected error occurred during sign-in';
@@ -76,8 +80,12 @@ export async function signOutCommand(): Promise<void> {
             );
         }
     } catch (error) {
-        // Log the full error for debugging
-        console.error('Sign-out error:', error);
+        // Log sanitized error for debugging (avoid logging sensitive information)
+        if (error instanceof Error) {
+            console.error('Sign-out error:', error.message);
+        } else {
+            console.error('Sign-out error: An unexpected error occurred');
+        }
         
         // Show user-friendly message
         const message = error instanceof Error ? error.message : 'An unexpected error occurred during sign-out';
