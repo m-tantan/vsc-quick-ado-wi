@@ -10,7 +10,10 @@
   "categories": ["Azure"],
   "activationEvents": [
     "onCommand:azuredevops.createWorkItem",
-    "onCommand:azuredevops.configure"
+    "onCommand:azuredevops.configure",
+    "onCommand:azuredevops.signIn",
+    "onCommand:azuredevops.signOut",
+    "onStartupFinished"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -22,6 +25,14 @@
       {
         "command": "azuredevops.configure",
         "title": "Configure Azure DevOps Settings"
+      },
+      {
+        "command": "azuredevops.signIn",
+        "title": "Quick ADO: Sign In"
+      },
+      {
+        "command": "azuredevops.signOut",
+        "title": "Quick ADO: Sign Out"
       }
     ],
     "menus": {
@@ -57,7 +68,75 @@
           "description": "Area Path for work items (e.g., 'ProjectName\\Team'). Leave empty to use project root."
         }
       }
-    }
+    },
+    "walkthroughs": [
+      {
+        "id": "azuredevops.getStarted",
+        "title": "Get Started with Azure DevOps Work Items",
+        "description": "Learn how to sign in and create your first work item from code selections",
+        "steps": [
+          {
+            "id": "welcome",
+            "title": "Welcome",
+            "description": "Learn what this extension does and how it can help you track technical debt and bugs.\n[Read More](command:markdown.showPreview?%5B%7B%22scheme%22%3A%22vscode-resource%22%2C%22path%22%3A%22${workspaceFolder}/walkthroughs/welcome.md%22%7D%5D)",
+            "media": {
+              "markdown": "walkthroughs/welcome.md"
+            }
+          },
+          {
+            "id": "signIn",
+            "title": "Sign in to Azure DevOps",
+            "description": "Authenticate with your Microsoft account to access Azure DevOps.\n[Sign In Now](command:azuredevops.signIn)",
+            "media": {
+              "markdown": "walkthroughs/sign-in.md"
+            },
+            "completionEvents": [
+              "onCommand:azuredevops.signIn"
+            ]
+          },
+          {
+            "id": "configure",
+            "title": "Configure Your Organization and Project",
+            "description": "Set up your Azure DevOps organization and project.\n[Configure Now](command:azuredevops.configure)",
+            "media": {
+              "markdown": "walkthroughs/welcome.md"
+            },
+            "completionEvents": [
+              "onCommand:azuredevops.configure",
+              "onSettingChanged:azureDevOps.organization",
+              "onSettingChanged:azureDevOps.project"
+            ]
+          },
+          {
+            "id": "createCommandPalette",
+            "title": "Create a Work Item (Command Palette)",
+            "description": "Learn how to create work items using the Command Palette.\n[Create Work Item](command:azuredevops.createWorkItem)",
+            "media": {
+              "markdown": "walkthroughs/create-command-palette.md"
+            },
+            "completionEvents": [
+              "onCommand:azuredevops.createWorkItem"
+            ]
+          },
+          {
+            "id": "createContextMenu",
+            "title": "Create a Work Item (Right-Click)",
+            "description": "Learn how to create work items using the right-click context menu.\n[Learn More](command:markdown.showPreview?%5B%7B%22scheme%22%3A%22vscode-resource%22%2C%22path%22%3A%22${workspaceFolder}/walkthroughs/create-context-menu.md%22%7D%5D)",
+            "media": {
+              "markdown": "walkthroughs/create-context-menu.md"
+            }
+          },
+          {
+            "id": "nextSteps",
+            "title": "What's Next?",
+            "description": "Learn about additional features and where to get help.\n[View Documentation](https://github.com/m-tantan/vsc-quick-ado-wi/blob/main/README.md)",
+            "media": {
+              "markdown": "walkthroughs/next-steps.md"
+            }
+          }
+        ]
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

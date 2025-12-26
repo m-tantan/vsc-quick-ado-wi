@@ -59,3 +59,51 @@ export async function getAccessToken(forceNewSession: boolean = false): Promise<
 export function clearAuthCache(): void {
     cachedSession = null;
 }
+
+/**
+ * Sign in to Azure DevOps - prompts the user to authenticate
+ * @returns The authenticated session
+ */
+export async function signIn(): Promise<vscode.AuthenticationSession> {
+    try {
+        // Clear any cached session to force fresh sign-in
+        cachedSession = null;
+        
+        const session = await vscode.authentication.getSession(
+            AUTH_PROVIDER,
+            [AZURE_DEVOPS_SCOPE],
+            {
+                createIfNone: true
+            }
+        );
+
+        if (!session) {
+            throw new Error('Failed to authenticate with Azure DevOps');
+        }
+
+        // Cache the new session
+        cachedSession = session;
+        
+        return session;
+    } catch (error) {
+        const message = error instanceof Error ? error.message : 'Unknown authentication error';
+        throw new Error(`Azure DevOps sign-in failed: ${message}`);
+    }
+}
+
+/**
+ * Sign out from Azure DevOps - clears the authentication session
+ */
+export async function signOut(): Promise<void> {
+    try {
+        // Clear the cached session
+        cachedSession = null;
+        
+        // Note: VS Code's authentication API doesn't provide a direct way to programmatically 
+        // sign out. The user can manage their accounts through VS Code's Accounts menu.
+        // Clearing the cache ensures the next operation will prompt for authentication.
+    } catch (error) {
+        const message = error instanceof Error ? error.message : 'Unknown error';
+        throw new Error(`Azure DevOps sign-out failed: ${message}`);
+    }
+}
