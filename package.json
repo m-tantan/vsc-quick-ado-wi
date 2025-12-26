@@ -5,9 +5,11 @@
   "version": "1.0.0",
   "publisher": "yomanor",
   "engines": {
-    "vscode": "^1.75.0"
+    "vscode": "^1.107.0"
   },
-  "categories": ["Azure"],
+  "categories": [
+    "Azure"
+  ],
   "activationEvents": [
     "onCommand:azuredevops.createWorkItem",
     "onCommand:azuredevops.configure",
@@ -146,14 +148,25 @@
     "test": "jest",
     "package": "vsce package"
   },
-  "keywords": ["azure", "devops", "work item", "task", "ado"],
+  "keywords": [
+    "azure",
+    "devops",
+    "work item",
+    "task",
+    "ado"
+  ],
   "author": "yomanor",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/m-tantan/vsc-quick-ado-wi"
+  },
   "devDependencies": {
     "@jest/globals": "^30.2.0",
     "@types/node": "^25.0.2",
     "@types/vscode": "^1.107.0",
     "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.7.1",
     "jest": "^30.2.0",
     "ts-jest": "^29.4.6",
     "typescript": "^5.9.3"
