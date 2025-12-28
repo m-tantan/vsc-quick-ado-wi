@@ -15,26 +15,26 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Register the create work item command
     const createWorkItemDisposable = vscode.commands.registerCommand(
-        'azuredevops.createWorkItem',
-        createWorkItemCommand
+      "quickAdoWi.createWorkItem",
+      createWorkItemCommand
     );
 
     // Register the configure command
     const configureDisposable = vscode.commands.registerCommand(
-        'azuredevops.configure',
-        runSetupWizard
+      "quickAdoWi.configure",
+      runSetupWizard
     );
 
     // Register the sign-in command
     const signInDisposable = vscode.commands.registerCommand(
-        'azuredevops.signIn',
-        signInCommand
+      "quickAdoWi.signIn",
+      signInCommand
     );
 
     // Register the sign-out command
     const signOutDisposable = vscode.commands.registerCommand(
-        'azuredevops.signOut',
-        signOutCommand
+      "quickAdoWi.signOut",
+      signOutCommand
     );
 
     // Add commands to subscriptions

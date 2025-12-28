@@ -11,60 +11,59 @@
     "Azure"
   ],
   "activationEvents": [
-    "onCommand:azuredevops.createWorkItem",
-    "onCommand:azuredevops.configure",
-    "onCommand:azuredevops.signIn",
-    "onCommand:azuredevops.signOut",
-    "onStartupFinished"
+    "onCommand:quickAdoWi.createWorkItem",
+    "onCommand:quickAdoWi.configure",
+    "onCommand:quickAdoWi.signIn",
+    "onCommand:quickAdoWi.signOut"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "azuredevops.createWorkItem",
+        "command": "quickAdoWi.createWorkItem",
         "title": "Create Azure DevOps Work Item"
       },
       {
-        "command": "azuredevops.configure",
+        "command": "quickAdoWi.configure",
         "title": "Configure Azure DevOps Settings"
       },
       {
-        "command": "azuredevops.signIn",
-        "title": "Quick ADO: Sign In"
+        "command": "quickAdoWi.signIn",
+        "title": "Quick ADO WI: Sign In"
       },
       {
-        "command": "azuredevops.signOut",
-        "title": "Quick ADO: Sign Out"
+        "command": "quickAdoWi.signOut",
+        "title": "Quick ADO WI: Sign Out"
       }
     ],
     "menus": {
       "editor/context": [
         {
-          "command": "azuredevops.createWorkItem",
+          "command": "quickAdoWi.createWorkItem",
           "when": "editorHasSelection",
           "group": "9_cutcopypaste@100"
         }
       ]
     },
     "configuration": {
-      "title": "Azure DevOps WIC",
+      "title": "Quick ADO Work Items",
       "properties": {
-        "azureDevOps.organization": {
+        "quickAdoWi.organization": {
           "type": "string",
           "default": "",
           "description": "Azure DevOps organization name"
         },
-        "azureDevOps.project": {
+        "quickAdoWi.project": {
           "type": "string",
           "default": "",
           "description": "Azure DevOps project name"
         },
-        "azureDevOps.defaultWorkItemType": {
+        "quickAdoWi.defaultWorkItemType": {
           "type": "string",
           "default": "Task",
           "description": "Default work item type to create"
         },
-        "azureDevOps.areaPath": {
+        "quickAdoWi.areaPath": {
           "type": "string",
           "default": "",
           "description": "Area Path for work items (e.g., 'ProjectName\\Team'). Leave empty to use project root."
@@ -88,45 +87,37 @@
           {
             "id": "signIn",
             "title": "Sign in to Azure DevOps",
-            "description": "Authenticate with your Microsoft account to access Azure DevOps.\n[Sign In Now](command:azuredevops.signIn)",
+            "description": "Authenticate with your Microsoft account to access Azure DevOps.\n[Sign In Now](command:quickAdoWi.signIn)",
             "media": {
               "markdown": "walkthroughs/sign-in.md"
             },
             "completionEvents": [
-              "onCommand:azuredevops.signIn"
+              "onCommand:quickAdoWi.signIn"
             ]
           },
           {
             "id": "configure",
             "title": "Configure Your Organization and Project",
-            "description": "Set up your Azure DevOps organization and project.\n[Configure Now](command:azuredevops.configure)",
+            "description": "Set up your Azure DevOps organization and project.\n[Configure Now](command:quickAdoWi.configure)",
             "media": {
               "markdown": "walkthroughs/configure.md"
             },
             "completionEvents": [
-              "onCommand:azuredevops.configure",
-              "onSettingChanged:azureDevOps.organization",
-              "onSettingChanged:azureDevOps.project"
+              "onCommand:quickAdoWi.configure",
+              "onSettingChanged:quickAdoWi.organization",
+              "onSettingChanged:quickAdoWi.project"
             ]
           },
           {
             "id": "createCommandPalette",
-            "title": "Create a Work Item (Command Palette)",
-            "description": "Learn how to create work items using the Command Palette.\n[Create Work Item](command:azuredevops.createWorkItem)",
+            "title": "Create a Work Item from Code",
+            "description": "Creating a work item requires an active editor and a selection (walkthroughs don't guarantee either).\n\n1) [Open a new file](command:workbench.action.files.newUntitledFile)\n2) Paste/select a few lines\n3) [Create Work Item](command:quickAdoWi.createWorkItem)",
             "media": {
-              "markdown": "walkthroughs/create-command-palette.md"
+              "markdown": "walkthroughs/create-work-item.md"
             },
             "completionEvents": [
-              "onCommand:azuredevops.createWorkItem"
+              "onCommand:quickAdoWi.createWorkItem"
             ]
-          },
-          {
-            "id": "createContextMenu",
-            "title": "Create a Work Item (Right-Click)",
-            "description": "Learn how to create work items using the right-click context menu.\n[Learn More](command:markdown.showPreview?%5B%7B%22scheme%22%3A%22vscode-resource%22%2C%22path%22%3A%22${workspaceFolder}/walkthroughs/create-context-menu.md%22%7D%5D)",
-            "media": {
-              "markdown": "walkthroughs/create-context-menu.md"
-            }
           },
           {
             "id": "nextSteps",

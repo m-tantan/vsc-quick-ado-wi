@@ -15,9 +15,8 @@ This walkthrough will guide you through:
 
 1. **Signing in** to Azure DevOps
 2. **Configuring** your organization and project
-3. **Creating your first work item** using the Command Palette
-4. **Creating work items** from the right-click context menu
-5. **Additional resources** and next steps
+3. **Creating your first work item** from a code selection (Command Palette or right-click)
+4. **Additional resources** and next steps
 
 Let's get started! Click **Next** to continue.
 

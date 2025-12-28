@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as https from 'https';
 import { getAuthSession } from '../auth/authProvider';
-import { setOrganization, setProject, isConfigured } from '../config/settings';
+import { setOrganization, setProject, setAreaPath, isConfigured } from '../config/settings';
 
 interface Organization {
     accountId: string;
@@ -159,12 +159,39 @@ export async function runSetupWizard(): Promise<boolean> {
             return false; // User cancelled
         }
         
-        // Step 4: Save configuration
+        // Step 4: Optionally configure Area Path
+        const areaPathInput = await vscode.window.showInputBox({
+            prompt: 'Enter Area Path (optional)',
+            placeHolder: 'e.g., ProjectName\\TeamName or leave empty for project root',
+            ignoreFocusOut: true,
+            validateInput: (value) => {
+                // Allow empty or validate format
+                if (!value || value.trim() === '') {
+                    return null; // Empty is valid
+                }
+                // Basic validation - just check for reasonable characters
+                if (value.includes('/')) {
+                    return 'Use backslash (\\) as separator, not forward slash';
+                }
+                return null;
+            }
+        });
+        
+        // Step 5: Save configuration
         await setOrganization(selectedOrg.label);
         await setProject(selectedProject.label);
         
+        // Save area path if provided
+        if (areaPathInput && areaPathInput.trim() !== '') {
+            await setAreaPath(areaPathInput.trim());
+        }
+        
+        // Show success message
+        const areaPathMsg = (areaPathInput && areaPathInput.trim() !== '') 
+            ? ` (Area: ${areaPathInput.trim()})`
+            : '';
         vscode.window.showInformationMessage(
-            `Azure DevOps configured: ${selectedOrg.label}/${selectedProject.label}`
+            `Azure DevOps configured: ${selectedOrg.label}/${selectedProject.label}/${areaPathMsg}`
         );
         
         return true;

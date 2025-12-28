@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { getOrganization, getProject, getAreaPath } from "../config/settings";
-import { getAccessToken } from "../auth/authProvider";
+import { getAccessToken, isSignedOut } from "../auth/authProvider";
 import {
   captureSelections,
   formatMultipleSnippets,
@@ -15,7 +15,7 @@ import { promptForTitle, promptForDescription } from "../ui/prompts";
 import { showSuccess, showError } from "../ui/notifications";
 import { needsSetup, runSetupWizard } from "../ui/setupWizard";
 
-const PARENT_DELIVERABLE_KEY = "quickWIs.parentDeliverableId";
+const PARENT_DELIVERABLE_KEY = "quickAdoWi.parentDeliverableId";
 
 /**
  * Get or create the parent deliverable for the current organization/project
@@ -89,6 +89,23 @@ export function setExtensionContext(context: vscode.ExtensionContext): void {
  */
 export async function createWorkItemCommand(): Promise<void> {
   try {
+    // Check if user is signed out
+    if (isSignedOut()) {
+      const result = await vscode.window.showWarningMessage(
+        "You are not signed in to Azure DevOps. Please sign in first.",
+        "Sign In",
+        "Cancel"
+      );
+
+      if (result === "Sign In") {
+        await vscode.commands.executeCommand("quickAdoWi.signIn");
+        // After sign-in, let the user manually trigger create work item again
+        return;
+      } else {
+        return; // User cancelled
+      }
+    }
+
     // Check if setup is needed
     if (needsSetup()) {
       const setupComplete = await runSetupWizard();
