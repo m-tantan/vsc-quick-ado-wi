@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { createWorkItemCommand, setExtensionContext } from './commands/createWorkItem';
 import { runSetupWizard } from './ui/setupWizard';
 import { clearAuthCache } from './auth/authProvider';
+import { signInCommand, signOutCommand } from './commands/authCommands';
 
 /**
  * Extension activation
@@ -14,19 +15,33 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Register the create work item command
     const createWorkItemDisposable = vscode.commands.registerCommand(
-        'azuredevops.createWorkItem',
-        createWorkItemCommand
+      "quickAdoWi.createWorkItem",
+      createWorkItemCommand
     );
 
     // Register the configure command
     const configureDisposable = vscode.commands.registerCommand(
-        'azuredevops.configure',
-        runSetupWizard
+      "quickAdoWi.configure",
+      runSetupWizard
+    );
+
+    // Register the sign-in command
+    const signInDisposable = vscode.commands.registerCommand(
+      "quickAdoWi.signIn",
+      signInCommand
+    );
+
+    // Register the sign-out command
+    const signOutDisposable = vscode.commands.registerCommand(
+      "quickAdoWi.signOut",
+      signOutCommand
     );
 
     // Add commands to subscriptions
     context.subscriptions.push(createWorkItemDisposable);
     context.subscriptions.push(configureDisposable);
+    context.subscriptions.push(signInDisposable);
+    context.subscriptions.push(signOutDisposable);
 }
 
 /**

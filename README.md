@@ -2,8 +2,23 @@
 
 Create Azure DevOps work items directly from code selections in Visual Studio Code. Capture technical debt, bugs, and tasks as you encounter them in your codebase without leaving your editor.
 
-![Extension demo](images/demo.gif)
-<span aria-label="Screenshot showing: User selects code in VS Code editor, right-clicks, selects 'Create Azure DevOps Work Item', enters title and description, and success notification appears with 'Open Work Item' and 'Open Parent' buttons"></span>
+## 🆕 What's New in v1.1.0
+
+- 🎯 **Interactive Walkthrough**: First-time setup with guided onboarding experience
+- 🔐 **Sign-In/Sign-Out Commands**: Explicit authentication control with account management
+- 📂 **Area Path in Setup**: Configure area path during initial setup wizard
+- 🐛 **Bug Fixes**: Resolved critical sign-out issues - now properly prevents actions after sign-out
+- 🔒 **Security Enhancements**: Sanitized error logging to prevent credential exposure
+
+> **⚠️ Breaking Changes**: Command and configuration namespaces changed from `azuredevops.*`/`azureDevOps.*` to `quickAdoWi.*`. See [Migration Guide](#-upgrading-from-v10x) below.
+
+---
+
+By right clicking after selecting code:
+![Screenshot showing: User selects code in VS Code editor, right-clicks, selects 'Create Azure DevOps Work Item', enters title and description, and success notification appears with 'Open Work Item' and 'Open Parent' buttons](images/context-menu-create-work-item.png)
+
+Or from the command palette:
+![Screenshot showing: User selects code in VS Code editor, opens the command palette](images/command-palette.png)
 
 ## ✨ Features
 
@@ -20,10 +35,12 @@ Create Azure DevOps work items directly from code selections in Visual Studio Co
 
 1. Install the extension from the VS Code Marketplace
 2. Open VS Code
-3. Run the command **"Create Azure DevOps Work Item"** or **"Configure Azure DevOps Settings"** to trigger initial setup
+3. **Follow the walkthrough**: Go to **Help** → **Get Started** → **Walkthroughs** and select **"Get Started with Azure DevOps Work Items"**
+   - Or run the command **"Create Azure DevOps Work Item"** or **"Configure Azure DevOps Settings"** to trigger initial setup
 
-![Configuration wizard](images/setup-wizard.png)
-<span aria-label="Screenshot showing: Setup wizard with three input prompts - Organization name, Project name, and Area Path (optional)"></span>
+![Screenshot showing: Setup wizard with three input prompts - Organization name, Project name, and Area Path (optional)](images/setup-wizard.png)
+
+**First-Time Experience**: When you first install the extension, we recommend following the walkthrough to learn how to sign in, configure your settings, and create your first work item.
 
 ## 🚀 Quick Start
 
@@ -31,57 +48,82 @@ Create Azure DevOps work items directly from code selections in Visual Studio Co
 
 1. **Authenticate**: The extension will prompt you to sign in with your Microsoft account
 
-   ![Authentication prompt](images/auth-prompt.png)
-   <span aria-label="Screenshot showing: VS Code authentication dialog 'Azure DevOps Work Item Creator wants to sign in using Microsoft' with 'Allow' button"></span>
-
 2. **Configure Settings**: Enter your Azure DevOps details:
 
    - **Organization**: Your Azure DevOps organization name (e.g., `WrecklessEngineer` for `https://dev.azure.com/WrecklessEngineer/`)
    - **Project**: Your project name (e.g., `MyFirstProject`)
    - **Area Path** (Optional): Specific area path if you have restricted permissions
 
-   ![Settings configuration](images/config-settings.png)
-   <span aria-label="Screenshot showing: Three VS Code input prompts filled in - Organization: 'WrecklessEngineer', Project: 'MyFirstProject', Area Path: 'Your area path'"></span>
+![Screenshot showing: Three VS Code input prompts filled in - Organization: 'WrecklessEngineer', Project: 'MyFirstProject', Area Path: 'Your area path'](images/setup-wizard-filled.png)
+
+### Sign In / Sign Out
+
+#### Signing In
+
+The extension uses **VS Code's built-in Microsoft authentication**, which is secure and seamless.
+
+To sign in explicitly, you can:
+
+1. **Use the Command Palette**: Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (Mac)
+2. Type **"Quick ADO: Sign In"**
+3. Press Enter and follow the authentication prompts
+
+**What happens during sign-in:**
+
+- A browser window opens asking you to sign in with your Microsoft account
+- You'll be asked to grant permissions to VS Code
+- Once authorized, you'll see a success message with your account name
+- If you haven't configured your organization/project yet, you'll be prompted to do so
+
+**Note**: Most of the time, you won't need to sign in manually. The extension will automatically prompt you to authenticate when you first try to create a work item.
+
+#### Signing Out
+
+To sign out from Azure DevOps:
+
+1. **Use the Command Palette**: Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (Mac)
+2. Type **"Quick ADO: Sign Out"**
+3. Press Enter and confirm the sign-out
+
+**What happens during sign-out:**
+
+- Your cached authentication session is cleared
+- You'll need to sign in again the next time you create a work item
+- Your configuration (organization, project, area path) is preserved
+
+**To fully remove access:**
+
+- Go to VS Code's **Accounts** menu (bottom-left corner)
+- Manage your Microsoft account and remove the Azure DevOps permissions
+
+#### Checking Your Sign-In Status
+
+After signing in, you can verify which organization and project you're connected to by:
+
+- Running the **"Configure Azure DevOps Settings"** command to see your current configuration
+- Checking the success message that appears after signing in
+
 ### Creating Your First Work Item
 
 1. **Select Code**: Highlight any code snippet in your editor
 
-   ![Code selection](images/code-selection.png)
-   <span aria-label="Screenshot showing: VS Code editor with a TypeScript function selected/highlighted in blue"></span>
-
 2. **Open Context Menu**: Right-click on the selection
-
-   ![Context menu](images/context-menu.png)
-   <span aria-label="Screenshot showing: Right-click context menu with 'Create Azure DevOps Work Item' option highlighted"></span>
 
 3. **Enter Title**: Provide a descriptive title for the work item
 
-   ![Title prompt](images/title-prompt.png)
-   <span aria-label="Screenshot showing: VS Code input box at top of editor with placeholder 'Enter work item title' and example text 'Refactor calculateTotal to handle null items'"></span>
-
 4. **Add Context** (Optional): Add additional description or context
-
-   ![Description prompt](images/description-prompt.png)
-   <span aria-label="Screenshot showing: VS Code input box with placeholder 'Additional context (optional)' and example text 'Need to add null checking and improve error handling'"></span>
 
 5. **Work Item Created!**: The URL is copied to your clipboard and a notification appears
 
-   ![Success notification](images/success-notification.png)
-   <span aria-label="Screenshot showing: VS Code info notification 'Copied to clipboard' with two buttons - 'Open Work Item' and 'Open Parent'"></span>
+![Screenshot showing: VS Code info notification 'Copied to clipboard' with two buttons - 'Open Work Item' and 'Open Parent'](images/notification-success.png)
 
 ### View in Azure DevOps
 
-Click **"Open Work Item"** to see your newly created task with formatted code snippets:
-
-![Work item in Azure DevOps](images/ado-workitem.png)
-<span aria-label="Screenshot showing: Azure DevOps work item page with formatted sections - Context heading, Branch heading with code-formatted branch name, Code Snippets heading with syntax-highlighted code blocks showing file paths and line numbers, and a Links tab showing parent deliverable relationship"></span>
+Click **"Open Work Item"** to see your newly created task with formatted code snippets.
 
 ### Parent Deliverable Tracking
 
 All work items are automatically linked to a parent deliverable titled "Quick WIs" for easy tracking:
-
-![Parent deliverable with children](images/parent-deliverable.png)
-<span aria-label="Screenshot showing: Azure DevOps deliverable work item titled 'Quick WIs' with Related Work section showing multiple child work items linked underneath"></span>
 
 ## 🎯 Usage
 
@@ -126,22 +168,24 @@ Branch: feature/refactor-calculations
 
 - **Create Azure DevOps Work Item** - Create a work item from selected code
 - **Configure Azure DevOps Settings** - Change organization/project or re-authenticate
+- **Quick ADO: Sign In** - Sign in to Azure DevOps with your Microsoft account
+- **Quick ADO: Sign Out** - Sign out from Azure DevOps and clear cached authentication
 
 ## ⚙️ Configuration
 
 Access settings through:
 - Command Palette: **"Configure Azure DevOps Settings"**
-- VS Code Settings UI: Search for "Azure DevOps"
+- VS Code Settings UI: Search for "Quick ADO" or "quickAdoWi"
 - Settings JSON: Edit directly
 
 ### Available Settings
 
 | Setting | Description | Example |
 |---------|-------------|---------|
-| `azureDevOps.organization` | Azure DevOps organization name | `microsoft` |
-| `azureDevOps.project` | Project name within the organization | `DefenderCommon` |
-| `azureDevOps.areaPath` | Optional area path for permissions | `OS\\WDATP\\Seville` |
-| `azureDevOps.defaultWorkItemType` | Work item type (default: Task) | `Task` |
+| `quickAdoWi.organization` | Azure DevOps organization name | `microsoft` |
+| `quickAdoWi.project` | Project name within the organization | `DefenderCommon` |
+| `quickAdoWi.areaPath` | Optional area path for permissions | `OS\\WDATP\\Seville` |
+| `quickAdoWi.defaultWorkItemType` | Work item type (default: Task) | `Task` |
 
 ### URL Formats Supported
 
@@ -213,7 +257,7 @@ If you have restricted permissions in Azure DevOps, configure an Area Path you h
 
 ```json
 {
-  "azureDevOps.areaPath": "Your area path"
+  "quickAdoWi.areaPath": "Your area path"
 }
 ```
 
@@ -302,13 +346,54 @@ This extension:
 | ----------------------------------- | ------------------------ | ------------------------------------- |
 | **Create Azure DevOps Work Item**   | Right-click context menu | Create work item from code selection  |
 | **Configure Azure DevOps Settings** | Command Palette          | Update organization/project/area path |
+| **Quick ADO: Sign In**              | Command Palette          | Sign in to Azure DevOps               |
+| **Quick ADO: Sign Out**             | Command Palette          | Sign out from Azure DevOps            |
 
 ## 🔄 Requirements
 
-- **VS Code**: Version 1.75.0 or higher
+- **VS Code**: Version 1.107.0 or higher (updated for walkthrough support)
 - **Azure DevOps**: Account with access to at least one project
 - **Permissions**: "Create work items" permission in your project
 - **Network**: Internet connection to reach Azure DevOps APIs
+
+## 📤 Upgrading from v1.0.x
+
+Version 1.1.0 introduces namespace changes for better specificity. After upgrading:
+
+### Option 1: Use the Configuration Command (Recommended)
+
+1. Open Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
+2. Run **"Configure Azure DevOps Settings"**
+3. Follow the setup wizard to enter your organization, project, and optional area path
+
+### Option 2: Manually Update Settings
+
+Edit your VS Code settings (JSON) and update the keys:
+
+```json
+{
+  // Old settings (will no longer work)
+  "azureDevOps.organization": "your-org",
+  "azureDevOps.project": "your-project",
+  "azureDevOps.areaPath": "your-area-path",
+  
+  // New settings (required for v1.1.0+)
+  "quickAdoWi.organization": "your-org",
+  "quickAdoWi.project": "your-project",
+  "quickAdoWi.areaPath": "your-area-path"  // optional
+}
+```
+
+### Command Changes
+
+| Old Command (v1.0.x) | New Command (v1.1.0+) |
+|---------------------|----------------------|
+| `azuredevops.createWorkItem` | `quickAdoWi.createWorkItem` |
+| `azuredevops.configure` | `quickAdoWi.configure` |
+| N/A | `quickAdoWi.signIn` (new) |
+| N/A | `quickAdoWi.signOut` (new) |
+
+**Note**: If you have keybindings or tasks that reference the old command IDs, you'll need to update them.
 
 ## 🚧 Known Limitations
 

@@ -2,62 +2,134 @@
   "name": "azure-devops-workitem-creator",
   "displayName": "Azure DevOps Work Item Creator",
   "description": "Create Azure DevOps work items directly from code selections in VS Code",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publisher": "yomanor",
   "engines": {
-    "vscode": "^1.75.0"
+    "vscode": "^1.107.0"
   },
-  "categories": ["Azure"],
+  "categories": [
+    "Azure"
+  ],
   "activationEvents": [
-    "onCommand:azuredevops.createWorkItem",
-    "onCommand:azuredevops.configure"
+    "onCommand:quickAdoWi.createWorkItem",
+    "onCommand:quickAdoWi.configure",
+    "onCommand:quickAdoWi.signIn",
+    "onCommand:quickAdoWi.signOut"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "azuredevops.createWorkItem",
+        "command": "quickAdoWi.createWorkItem",
         "title": "Create Azure DevOps Work Item"
       },
       {
-        "command": "azuredevops.configure",
+        "command": "quickAdoWi.configure",
         "title": "Configure Azure DevOps Settings"
+      },
+      {
+        "command": "quickAdoWi.signIn",
+        "title": "Quick ADO WI: Sign In"
+      },
+      {
+        "command": "quickAdoWi.signOut",
+        "title": "Quick ADO WI: Sign Out"
       }
     ],
     "menus": {
       "editor/context": [
         {
-          "command": "azuredevops.createWorkItem",
+          "command": "quickAdoWi.createWorkItem",
           "when": "editorHasSelection",
           "group": "9_cutcopypaste@100"
         }
       ]
     },
     "configuration": {
-      "title": "Azure DevOps WIC",
+      "title": "Quick ADO Work Items",
       "properties": {
-        "azureDevOps.organization": {
+        "quickAdoWi.organization": {
           "type": "string",
           "default": "",
           "description": "Azure DevOps organization name"
         },
-        "azureDevOps.project": {
+        "quickAdoWi.project": {
           "type": "string",
           "default": "",
           "description": "Azure DevOps project name"
         },
-        "azureDevOps.defaultWorkItemType": {
+        "quickAdoWi.defaultWorkItemType": {
           "type": "string",
           "default": "Task",
           "description": "Default work item type to create"
         },
-        "azureDevOps.areaPath": {
+        "quickAdoWi.areaPath": {
           "type": "string",
           "default": "",
           "description": "Area Path for work items (e.g., 'ProjectName\\Team'). Leave empty to use project root."
         }
       }
-    }
+    },
+    "walkthroughs": [
+      {
+        "id": "quickado.getStarted",
+        "title": "Get Started with Azure DevOps Work Items",
+        "description": "Learn how to sign in and create your first work item from code selections",
+        "steps": [
+          {
+            "id": "welcome",
+            "title": "Welcome",
+            "description": "Learn what this extension does and how it can help you track technical debt and bugs.\n[Read More](command:markdown.showPreview?%5B%7B%22scheme%22%3A%22vscode-resource%22%2C%22path%22%3A%22${workspaceFolder}/walkthroughs/welcome.md%22%7D%5D)",
+            "media": {
+              "markdown": "walkthroughs/welcome.md"
+            }
+          },
+          {
+            "id": "signIn",
+            "title": "Sign in to Azure DevOps",
+            "description": "Authenticate with your Microsoft account to access Azure DevOps.\n[Sign In Now](command:quickAdoWi.signIn)",
+            "media": {
+              "markdown": "walkthroughs/sign-in.md"
+            },
+            "completionEvents": [
+              "onCommand:quickAdoWi.signIn"
+            ]
+          },
+          {
+            "id": "configure",
+            "title": "Configure Your Organization and Project",
+            "description": "Set up your Azure DevOps organization and project.\n[Configure Now](command:quickAdoWi.configure)",
+            "media": {
+              "markdown": "walkthroughs/configure.md"
+            },
+            "completionEvents": [
+              "onCommand:quickAdoWi.configure",
+              "onSettingChanged:quickAdoWi.organization",
+              "onSettingChanged:quickAdoWi.project"
+            ]
+          },
+          {
+            "id": "createCommandPalette",
+            "title": "Create a Work Item from Code",
+            "description": "Creating a work item requires an active editor and a selection (walkthroughs don't guarantee either).\n\n1) [Open a new file](command:workbench.action.files.newUntitledFile)\n2) Paste/select a few lines\n3) [Create Work Item](command:quickAdoWi.createWorkItem)",
+            "media": {
+              "markdown": "walkthroughs/create-work-item.md"
+            },
+            "completionEvents": [
+              "onCommand:quickAdoWi.createWorkItem"
+            ]
+          },
+          {
+            "id": "nextSteps",
+            "title": "What's Next?",
+            "description": "Learn about additional features and where to get help.\n[View Documentation](https://github.com/m-tantan/vsc-quick-ado-wi/blob/main/README.md)",
+            "media": {
+              "markdown": "walkthroughs/next-steps.md"
+            }
+          }
+        ]
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -67,14 +139,27 @@
     "test": "jest",
     "package": "vsce package"
   },
-  "keywords": ["azure", "devops", "work item", "task", "ado"],
+  "keywords": [
+    "azure",
+    "devops",
+    "work item",
+    "task",
+    "ado",
+    "snippet",
+    "quote"
+  ],
   "author": "yomanor",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/m-tantan/vsc-quick-ado-wi"
+  },
   "devDependencies": {
     "@jest/globals": "^30.2.0",
     "@types/node": "^25.0.2",
     "@types/vscode": "^1.107.0",
     "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.7.1",
     "jest": "^30.2.0",
     "ts-jest": "^29.4.6",
     "typescript": "^5.9.3"
