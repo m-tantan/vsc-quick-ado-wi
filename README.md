@@ -2,6 +2,18 @@
 
 Create Azure DevOps work items directly from code selections in Visual Studio Code. Capture technical debt, bugs, and tasks as you encounter them in your codebase without leaving your editor.
 
+## 🆕 What's New in v1.1.0
+
+- 🎯 **Interactive Walkthrough**: First-time setup with guided onboarding experience
+- 🔐 **Sign-In/Sign-Out Commands**: Explicit authentication control with account management
+- 📂 **Area Path in Setup**: Configure area path during initial setup wizard
+- 🐛 **Bug Fixes**: Resolved critical sign-out issues - now properly prevents actions after sign-out
+- 🔒 **Security Enhancements**: Sanitized error logging to prevent credential exposure
+
+> **⚠️ Breaking Changes**: Command and configuration namespaces changed from `azuredevops.*`/`azureDevOps.*` to `quickAdoWi.*`. See [Migration Guide](#-upgrading-from-v10x) below.
+
+---
+
 By right clicking after selecting code:
 ![Screenshot showing: User selects code in VS Code editor, right-clicks, selects 'Create Azure DevOps Work Item', enters title and description, and success notification appears with 'Open Work Item' and 'Open Parent' buttons](images/context-menu-create-work-item.png)
 
@@ -163,17 +175,17 @@ Branch: feature/refactor-calculations
 
 Access settings through:
 - Command Palette: **"Configure Azure DevOps Settings"**
-- VS Code Settings UI: Search for "Azure DevOps"
+- VS Code Settings UI: Search for "Quick ADO" or "quickAdoWi"
 - Settings JSON: Edit directly
 
 ### Available Settings
 
 | Setting | Description | Example |
 |---------|-------------|---------|
-| `azureDevOps.organization` | Azure DevOps organization name | `microsoft` |
-| `azureDevOps.project` | Project name within the organization | `DefenderCommon` |
-| `azureDevOps.areaPath` | Optional area path for permissions | `OS\\WDATP\\Seville` |
-| `azureDevOps.defaultWorkItemType` | Work item type (default: Task) | `Task` |
+| `quickAdoWi.organization` | Azure DevOps organization name | `microsoft` |
+| `quickAdoWi.project` | Project name within the organization | `DefenderCommon` |
+| `quickAdoWi.areaPath` | Optional area path for permissions | `OS\\WDATP\\Seville` |
+| `quickAdoWi.defaultWorkItemType` | Work item type (default: Task) | `Task` |
 
 ### URL Formats Supported
 
@@ -245,7 +257,7 @@ If you have restricted permissions in Azure DevOps, configure an Area Path you h
 
 ```json
 {
-  "azureDevOps.areaPath": "Your area path"
+  "quickAdoWi.areaPath": "Your area path"
 }
 ```
 
@@ -339,10 +351,49 @@ This extension:
 
 ## 🔄 Requirements
 
-- **VS Code**: Version 1.75.0 or higher
+- **VS Code**: Version 1.107.0 or higher (updated for walkthrough support)
 - **Azure DevOps**: Account with access to at least one project
 - **Permissions**: "Create work items" permission in your project
 - **Network**: Internet connection to reach Azure DevOps APIs
+
+## 📤 Upgrading from v1.0.x
+
+Version 1.1.0 introduces namespace changes for better specificity. After upgrading:
+
+### Option 1: Use the Configuration Command (Recommended)
+
+1. Open Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
+2. Run **"Configure Azure DevOps Settings"**
+3. Follow the setup wizard to enter your organization, project, and optional area path
+
+### Option 2: Manually Update Settings
+
+Edit your VS Code settings (JSON) and update the keys:
+
+```json
+{
+  // Old settings (will no longer work)
+  "azureDevOps.organization": "your-org",
+  "azureDevOps.project": "your-project",
+  "azureDevOps.areaPath": "your-area-path",
+  
+  // New settings (required for v1.1.0+)
+  "quickAdoWi.organization": "your-org",
+  "quickAdoWi.project": "your-project",
+  "quickAdoWi.areaPath": "your-area-path"  // optional
+}
+```
+
+### Command Changes
+
+| Old Command (v1.0.x) | New Command (v1.1.0+) |
+|---------------------|----------------------|
+| `azuredevops.createWorkItem` | `quickAdoWi.createWorkItem` |
+| `azuredevops.configure` | `quickAdoWi.configure` |
+| N/A | `quickAdoWi.signIn` (new) |
+| N/A | `quickAdoWi.signOut` (new) |
+
+**Note**: If you have keybindings or tasks that reference the old command IDs, you'll need to update them.
 
 ## 🚧 Known Limitations
 

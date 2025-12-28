@@ -2,7 +2,7 @@
   "name": "azure-devops-workitem-creator",
   "displayName": "Azure DevOps Work Item Creator",
   "description": "Create Azure DevOps work items directly from code selections in VS Code",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publisher": "yomanor",
   "engines": {
     "vscode": "^1.107.0"
